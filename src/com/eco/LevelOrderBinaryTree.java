@@ -34,10 +34,12 @@ public class LevelOrderBinaryTree {
 	    	List<Integer> show=new ArrayList<Integer>();
 	    	Queue<TreeNode> save=new LinkedList<TreeNode>();
 	    	int i;
+	    	if(root==null) return show;
 	    	save.offer(root);
 	    	while(save.isEmpty()!=true)
 	    	{
-	    		for(i=0;i<save.size();i++)
+	    		int size=save.size();
+	    		for(i=0;i<size;i++)//不能使用for(i=0;i<save.size();i++)即每次循环都重新计算新的队列长度
 	    		{
 	    			TreeNode tmp=save.poll();
 	    			if(i==0)//由于先入队的始终是该层最右边节点，所以只需将该节点显示出来即可
@@ -52,11 +54,31 @@ public class LevelOrderBinaryTree {
 	    			{
 	    				save.offer(tmp.left);
 	    			}
-
 	    		}
 	    	}
 	    	
 	        return show;
 	    }
 }
+/**
+ *     public List<Integer> rightSideView(TreeNode root) {
+        // reverse level traversal
+        List<Integer> result = new ArrayList();
+        Queue<TreeNode> queue = new LinkedList();
+        if (root == null) return result;
+
+        queue.offer(root);
+        while (queue.size() != 0) {
+            int size = queue.size();
+            for (int i=0; i<size; i++) {
+                TreeNode cur = queue.poll();
+                if (i == 0) result.add(cur.val);
+                if (cur.right != null) queue.offer(cur.right);
+                if (cur.left != null) queue.offer(cur.left);
+            }
+
+        }
+        return result;
+    }
+ */
 
